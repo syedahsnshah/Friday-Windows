@@ -1,0 +1,48 @@
+name: Build Windows Executable & Installer
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+permissions:
+  contents: read
+jobs:
+  build-windows:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          architecture: x64
+          cache: pip
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt "pyinstaller>=6.16,<7"
+      - name: Check packaging logic
+        run: python -m unittest discover -s tests -p test_windows_packaging.py -v
+      - name: Fetch verified official offline wake model
+        run: python packaging/windows/fetch_wake_model.py
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress --yes
+      - name: Build app and installation wizard
+        run: python packaging/windows/build_exe.py --installer
+      - name: Test bundle, install, launch and uninstall
+        run: python packaging/windows/validate_installer.py
+      - name: Upload verified installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: FRIDAY-56.0.0-Windows-Setup
+          path: |
+            dist/windows/FRIDAY_Setup_56.0.0_x64.exe
+            dist/windows/SHA256SUMS.txt
+            dist/windows/installer-manifest.json
+          if-no-files-found: error
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: FRIDAY-Windows-Checks
+          path: build/windows/acceptance/
+          if-no-files-found: ignore

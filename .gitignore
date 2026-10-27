@@ -1,0 +1,49 @@
+# Private settings and accounts
+config/*.json
+config/certs/
+config/whatsapp_web/
+config/browser_sessions/
+**/token*.json
+**/client_secret*.json
+*credentials*.json
+.env
+.env.*
+*.key
+*.pem
+# Customer memory/state
+memory/*.json
+memory/*.db
+memory/*.db-*
+memory/*.sqlite*
+# Build products and developer environments
+__pycache__/
+*.py[cod]
+*.so
+build/
+dist/
+output/
+tmp/
+audit/
+*.egg-info/
+.eggs/
+.venv/
+.venv-windows/
+venv/
+env/
+ENV/
+node_modules/
+vendor/
+# Local editor and OS state
+.codex/
+.agents/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+# Runtime output
+*.log
+logs/
+downloads/
+screenshots/
