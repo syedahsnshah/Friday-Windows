@@ -35,13 +35,13 @@ These are intended workflows. Successful completion depends on the website, acco
 
 ## Windows installer
 
-The build target is **FRIDAY_Setup_56.0.0_x64.exe**, for Windows 10 build 19041 or later and Windows 11 on x64 machines.
+The verified installer is **FRIDAY_Setup_56.0.0_x64.exe**, for Windows 10 build 19041 or later and Windows 11 on x64 machines.
 
 Customers use an installation wizard and launch FRIDAY from the Start Menu. No Python or source-code setup is required for customers. Accounts and credentials are configured on their own computer, never bundled in the installer.
 
-The [Windows Actions workflow](../../actions) builds the executable, creates the setup wizard and checks installation, offline launch and uninstallation. After a successful run, download the **FRIDAY-56.0.0-Windows-Setup** artifact. It contains the EXE, checksum and build manifest. An artifact is not a published release; check Actions for the actual build result.
+The [Windows Actions workflow](../../actions) builds the executable, creates the setup wizard and checks installation, offline launch and uninstallation. After a successful run, download the **FRIDAY-56.0.0-Windows-Setup** artifact. It contains the EXE, checksum and build manifest. [Download the verified build artifact](https://github.com/syedahsnshah/Friday-Windows/actions/runs/40478324869/artifacts/12722455605) (GitHub sign-in required). Extract the ZIP and run the EXE. This Actions artifact expires on January 25, 2027.
 
-**Validation:** 48 local tests passed with 2 skips before publication. Native Windows compilation and acceptance results are reported by Actions. Live microphone, signed-in browser and ecommerce workflows still require testing on Windows. The installer is currently unsigned.
+**Validation:** [Windows build #1 passed](https://github.com/syedahsnshah/Friday-Windows/actions/runs/40478324869), including packaged launch, installation, installed launch and uninstallation, with 25 tools loaded. The local suite ran 48 tests: 46 passed and 2 were skipped. Live microphone, signed-in browser and ecommerce workflows still require testing on Windows. The installer is currently unsigned.
 
 Developer build instructions: [Windows packaging guide](packaging/windows/README.md).
 
